@@ -1,35 +1,50 @@
 import CanvasImage, {
-  Image,
-  Text,
-  Sprite
-} from './main/Index';
+  Shape
+} from '../src/Index';
 
 Page({
   data: {},
   async onLoad(options) {
     var ctx = wx.createCanvasContext('customCanvas');
     const canvasCtx = new CanvasImage(ctx);
-    let listPromise = canvasCtx.loadImages('./images/bg.png', './images/data2@2x.png');
-    let listImage = await Promise.all(listPromise)
+
+    let listPromise = canvasCtx.loadImages('./images/bg.png', './images/data2@2x.png', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKPpoWTDzhIakEEViaoRkGd3DuHSlUeiap4EYhDlricqj4GZ7icS9gzd21JL9lRVMS1IV9oZmic32k6cWQ/132');
+    wx.showLoading({
+      title: '图片生成中',
+    })
+    let [bg, icon, avatar] = await Promise.all(listPromise)
     canvasCtx.addRect({
       color: '#eee',
       rect: [20, 20, 335, 600, 10],
       shadow: [0, 0, 10, 'rgba(0,0,0,0.5)']
     })
     canvasCtx.addImage({
-      source: listImage[1],
+      source: icon,
       x: 40,
       y: 30,
       zIndex: 9
     })
 
     canvasCtx.addImage({
-      source: listImage[1],
+      source: icon,
       x: 40,
       y: 80,
       width: 60,
       height: 60,
       zIndex: 9
+    });
+
+    let mask = new Shape();
+    mask.arc(140, 80, 30, 0, 2 * Math.PI);
+    canvasCtx.addImage({
+      source: avatar,
+      shadow: [0, 0, 10, 'rgba(0,0,0,0.5)'],
+      backgroundColor: '#fff',
+      mask,
+      x: 140,
+      y: 80,
+      width: 60,
+      height: 60
     })
 
     let text = canvasCtx.addText({
@@ -47,7 +62,7 @@ Page({
     })
 
     canvasCtx.addImage({
-      source: listImage[0],
+      source: bg,
       width: 300,
       height: text.measureText().height + 10,
       x: 40,
@@ -55,6 +70,7 @@ Page({
       rect: [0, 12, 300, 20]
     })
     canvasCtx.addRect('pink', [40, 160, 100, 100, this.randRange(0, 50)], [0, 0, 10, 'blue']);
+
     let [err, res] = await canvasCtx.draw(true, {
       x: 0,
       y: 0,
@@ -63,6 +79,7 @@ Page({
       canvasId: 'customCanvas',
     });
 
+    wx.hideLoading();
     console.log('生成Image地址', res);
   },
   randRange(start, end) {
