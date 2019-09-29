@@ -38,7 +38,7 @@ Page({
     mask.arc(140, 80, 30, 0, 2 * Math.PI);
     canvasCtx.addImage({
       source: avatar,
-      shadow: [0, 0, 10, 'rgba(0,0,0,0.5)'],
+      shadow: [0, 0, 10, 'rgba(0, 0, 0, 0.2)'],
       backgroundColor: '#fff',
       mask,
       x: 140,
