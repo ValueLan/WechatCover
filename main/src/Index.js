@@ -55,7 +55,8 @@ export default class CanvasImage {
         rect
       }
     }
-    if (data.source) {
+    if (!data.source[0] && data.source[1]) {
+      data.source = data.source[1];
       let image = new Image(data);
       this.addChild(image);
       return image
@@ -70,13 +71,13 @@ export default class CanvasImage {
         wx.getImageInfo({
           src: item,
           success(res) {
-            if (!(/^http/.test(res.path))) {
+            if (res.path.indexOf("://") == -1) {
               res.path = '/' + res.path
             }
-            resolve(res);
+            resolve([, res]);
           },
-          fail() {
-            resolve();
+          fail(err) {
+            resolve([err]);
           }
         })
       })
