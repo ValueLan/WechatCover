@@ -26,13 +26,13 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.8.3",
-	"appid": "wxa35895720be001f8",
 	"projectname": "WechatCover",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"appid": "wx2b1aabcdc860695d",
 	"condition": {
 		"search": {
 			"current": -1,

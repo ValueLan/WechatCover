@@ -16,7 +16,7 @@ Page({
     wx.showLoading({
       title: '图片生成中',
     })
-    let listPromise = canvasCtx.loadImages('./images/bg.png', 'https://investtool-1254399226.cos.ap-guangzhou.myqcloud.com/image/xcx_image/share-active.png', 'https://thumbnail0.baidupcs.com/thumbnail/026b701d26abddbae641222027d172cf?fid=3204566640-250528-148873388924769&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-8WV6Ipd9anKM%2bw9gbwIaMkGgagc%3d&expires=8h&chkbd=0&chkv=0&dp-logid=6318377613468744130&dp-callid=0&time=1569808800&size=c1920_u1080&quality=90&vuk=3204566640&ft=image&autopolicy=1', 'https://thumbnail0.baidupcs.com/thumbnail/b27811ce9d4f4093b8832c0eb02fc7fe?fid=3204566640-250528-1028977197837789&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-sit7OKZdnlrFb0fxFPNiy0Ocu00%3d&expires=8h&chkbd=0&chkv=0&dp-logid=6317876651412206612&dp-callid=0&time=1569805200&size=c1920_u1080&quality=90&vuk=3204566640&ft=image&autopolicy=1');
+    let listPromise = canvasCtx.loadImages('./images/bg.png', './images/data2@2x.png', 'https://thumbnail0.baidupcs.com/thumbnail/026b701d26abddbae641222027d172cf?fid=3204566640-250528-148873388924769&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-8WV6Ipd9anKM%2bw9gbwIaMkGgagc%3d&expires=8h&chkbd=0&chkv=0&dp-logid=6318377613468744130&dp-callid=0&time=1569808800&size=c1920_u1080&quality=90&vuk=3204566640&ft=image&autopolicy=1', 'https://thumbnail0.baidupcs.com/thumbnail/b27811ce9d4f4093b8832c0eb02fc7fe?fid=3204566640-250528-1028977197837789&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-sit7OKZdnlrFb0fxFPNiy0Ocu00%3d&expires=8h&chkbd=0&chkv=0&dp-logid=6317876651412206612&dp-callid=0&time=1569805200&size=c1920_u1080&quality=90&vuk=3204566640&ft=image&autopolicy=1');
 
     let [bg, icon, avatar, wxCode] = await Promise.all(listPromise)
 
