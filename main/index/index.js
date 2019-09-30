@@ -34,13 +34,12 @@ Page({
       zIndex: 9
     });
 
-    let mask = new Shape();
-    mask.arc(140, 80, 30, 0, 2 * Math.PI);
+
     canvasCtx.addImage({
       source: avatar,
       shadow: [0, 0, 10, 'rgba(0, 0, 0, 0.2)'],
       backgroundColor: '#fff',
-      mask,
+      mask: Shape.arc(140, 80, 30, 0, 2 * Math.PI),
       x: 140,
       y: 80,
       width: 60,

@@ -1,4 +1,14 @@
 export default class Shape {
+  static arc(...arg) {
+    let shape = new Shape();
+     shape.arc(...arg);
+    return shape
+  }
+  static rect(...arg) {
+    let shape = new Shape();
+    shape.rect(...arg);
+    return shape
+  }
   ctx = null
   list = []
   constructor() {
