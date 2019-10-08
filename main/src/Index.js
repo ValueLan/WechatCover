@@ -68,7 +68,7 @@ export default class CanvasImage {
   loadImages(...urls) {
     return urls.map((item) => {
       return new Promise((resolve) => {
-if (item == '') return resolve([{errMsg: 'url地址为空'}]);
+        if (item == '') return resolve([{errMsg: 'url地址为空'}]);
         wx.getImageInfo({
           src: item,
           success(res) {
