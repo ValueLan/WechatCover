@@ -2,23 +2,32 @@ import CanvasImage, {
   Shape
 } from '../src/Index';
 
-function sleep(time) {
-  return new Promise(function(resolve) {
-    setTimeout(resolve, time)
-  })
-}
 Page({
-  data: {},
+  data: {
+    src: ''
+  },
+  async getImage() {
+    let [err, res] = await CanvasImage.saveImage(this.data.src);
+    if (err) {
+      wx.showToast({
+        title: '失败',
+        icon: 'none'
+      })
+    } else {
+      wx.showToast({
+        title: '成功',
+        icon: 'none'
+      })
+    }
+  },
   async onLoad(options) {
     var ctx = wx.createCanvasContext('customCanvas');
     const canvasCtx = new CanvasImage(ctx);
-
     wx.showLoading({
       title: '图片生成中',
     })
-    let listPromise = canvasCtx.loadImages('./images/bg.png', './images/data2@2x.png', './images/123.jpg', './images/wx.jpg');
 
-    let [bg, icon, avatar, wxCode] = await Promise.all(listPromise)
+    let [bg, icon, avatar, wxCode] = await CanvasImage.loadImages('./images/bg.png', './images/data2@2x.png', './images/132.png', './images/wx.jpg')
 
     canvasCtx.addRect({
       color: '#eee',
@@ -26,7 +35,6 @@ Page({
       shadow: [0, 0, 10, 'rgba(0,0,0,0.5)']
     })
     canvasCtx.addRect('pink', [30, 30, 305, 600, this.randRange(0, 50)], [0, 0, 10, 'blue']);
-
     canvasCtx.addImage({
       source: icon,
       x: 40,
@@ -45,18 +53,17 @@ Page({
       zIndex: 9
     });
 
-
     canvasCtx.addImage({
       source: avatar,
-      shadow: [0, 0, 10, 'rgba(0, 0, 0, 0.5)'],
+      shadow: [0, 0, 10, 'rgba(20, 20, 20, 0.5)'],
       backgroundColor: '#fff',
       mask: Shape.arc(140, 10, 30, 0, 2 * Math.PI),
       x: 140,
       y: 10,
       width: 60,
-      height: 60
+      height: 60,
+      zIndex: 999
     });
-
 
     canvasCtx.addImage({
       source: wxCode,
@@ -74,7 +81,7 @@ Page({
       row: this.randRange(3, 10),
       lineHeight: 22,
       color: '#FFF',
-      fontSize: '13px',
+      fontSize: 13,
       // fontStyle: 'italic',
       fontWeight: 'bold',
       zIndex: 99
@@ -89,15 +96,14 @@ Page({
       rect: [0, 12, 300, 20]
     })
 
-    let [err, res] = await canvasCtx.draw(true, {
-      x: 0,
-      y: 0,
-      width: 375,
-      height: 750,
+    let [err, src] = await canvasCtx.draw(true, {
       canvasId: 'customCanvas',
     });
     wx.hideLoading();
-    console.log('生成Image地址', res);
+    this.setData({
+      src
+    })
+    console.log('生成Image地址', src);
   },
   randRange(start, end) {
     return parseInt(Math.random() * (1 + end - start) + start)

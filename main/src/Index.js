@@ -15,6 +15,40 @@ export {
 export default class CanvasImage {
   ctx = null
   stageList = []
+  static saveImage(localPath) {
+    return new Promise(function(resolve) {
+      wx.saveImageToPhotosAlbum({
+        filePath: localPath,
+        success(res) {
+          resolve([, res]);
+        },
+        fail(res) {
+          resolve([res]);
+        }
+      })
+    })
+  }
+  static loadImages(...urls) {
+    return Promise.all(urls.map((item) => {
+      return new Promise((resolve) => {
+        if (item == '') return resolve([{
+          errMsg: 'url地址为空'
+        }]);
+        wx.getImageInfo({
+          src: item,
+          success(res) {
+            if (res.path.indexOf("://") == -1) {
+              res.path = '/' + res.path
+            }
+            resolve([, res]);
+          },
+          fail(err) {
+            resolve([err]);
+          }
+        })
+      })
+    }));
+  }
   constructor(ctx) {
     this.ctx = ctx
   }
@@ -64,28 +98,6 @@ export default class CanvasImage {
     return
   }
 
-  // 加载图片资源
-  loadImages(...urls) {
-    return urls.map((item) => {
-      return new Promise((resolve) => {
-        if (item == '') return resolve([{
-          errMsg: 'url地址为空'
-        }]);
-        wx.getImageInfo({
-          src: item,
-          success(res) {
-            if (res.path.indexOf("://") == -1) {
-              res.path = '/' + res.path
-            }
-            resolve([, res]);
-          },
-          fail(err) {
-            resolve([err]);
-          }
-        })
-      })
-    });
-  }
 
   addChild(layer) {
     layer.ctx = this.ctx;

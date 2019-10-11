@@ -1,7 +1,7 @@
 import Layer from './Layer'
 export default class Image extends Layer {
   source = null
-  rect = null // [x,y,w,h]
+  rect = null // [x, y, w, h]
   width = null
   height = null
   backgroundColor = ''

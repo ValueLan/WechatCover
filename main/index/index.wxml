@@ -1,1 +1,3 @@
-<canvas canvas-id='customCanvas' style="width:750rpx;height: 1300rpx; margin: 40rpx 0 ;"></canvas>
+<view bindtap="getImage">
+  <canvas canvas-id='customCanvas' style="width:750rpx;height: 1300rpx; margin: 40rpx 0 ;"></canvas>
+</view>

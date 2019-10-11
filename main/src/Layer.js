@@ -3,7 +3,7 @@ export default class Layer {
   opacity = 1;
   ctx = null
   mask = null
-  shadow = [0, 0, 0, '#000'];
+  shadow = null;
   constructor() {}
   draw() {
     this.ctx.setGlobalAlpha(this.opacity);
@@ -14,7 +14,7 @@ export default class Layer {
     if (this.mask) {
       if (this.shadow) {
         this.ctx.beginPath();
-        this.ctx.setFillStyle('rgba(0,0,0, 1)')
+        this.ctx.setFillStyle('rgba(0, 0, 0, 1)')
         this.mask.draw(this.ctx);
         this.ctx.setShadow(...this.shadow)
         this.ctx.fill();

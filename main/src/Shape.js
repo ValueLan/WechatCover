@@ -12,7 +12,6 @@ export default class Shape {
   ctx = null
   list = []
   constructor() {
-
   }
 
   draw(ctx) {
